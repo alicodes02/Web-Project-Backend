@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
+const UserRoutes = require('./Routes/UserManagementRoutes');
+
+app.use(cors());
+app.use(express.json());
 
 // connecting to remote mongodb cluster
 
@@ -19,6 +24,15 @@ catch ( (error) => {
 
     console.log('Error Connecting to MongoDB Cluster', error);
 });
+
+// route to check if API is working fine
+
+app.get('/test', (req, res) => {
+
+    res.status(200).send('API is active!');
+});
+
+app.use('/', UserRoutes);
 
 
 
