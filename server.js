@@ -9,6 +9,8 @@ app.use(express.json());
 
 // connecting to remote mongodb cluster
 
+const PORT = process.env.PORT || 3001;
+
 mongoose.connect('mongodb+srv://muhammadali:ali12345@cluster0.fom5vyh.mongodb.net/').
 
 then(()=> {
