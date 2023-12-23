@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./User');
 
 const projectSchema = new mongoose.Schema({
 
@@ -14,6 +15,12 @@ const projectSchema = new mongoose.Schema({
 
     dueDate: {
         type: Date, 
+        required: true
+    },
+
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     }
 });

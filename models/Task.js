@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
+const Comment = require('./Comment');
+const FileAttachment = require('./FileAttachment'); 
+const User = require('./User');
 
 const taskSchema = new mongoose.Schema({
-    
+
     title: {
         type: String,
         required: true,
