@@ -71,7 +71,7 @@ router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
 
     const title = req.body.title;
     const description = req.body.description;
-    const dueDate = parse(req.body.dueDate, 'dd/MM/yyyy', new Date());
+    const dueDate = parse(req.body.dueDate, 'yyyy-MM-dd', new Date());
     const priority = req.body.priority;
     const assignee = req.body.assignee;
 
