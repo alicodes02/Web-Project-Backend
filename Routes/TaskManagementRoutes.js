@@ -35,7 +35,7 @@ const authenticateUser = async (req, res, next) => {
 
 };
 
-router.get('/all-tasks', authenticateUser, async(req, res) => {
+router.get('/all-tasks', /*authenticateUser, */async(req, res) => {
 
     try {
 
@@ -65,7 +65,7 @@ router.get('/all-tasks', authenticateUser, async(req, res) => {
 
 //add task 
 
-router.post('/add-task', authenticateUser, async(req, res) => {
+router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
 
     console.log(req.body);
 
