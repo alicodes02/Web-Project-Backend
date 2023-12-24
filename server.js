@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const UserRoutes = require('./Routes/UserManagementRoutes');
+const taskRoutes = require('./Routes/TaskManagementRoutes');
 
 app.use(cors());
 app.use(express.json());
@@ -35,6 +36,7 @@ app.get('/test', (req, res) => {
 });
 
 app.use('/', UserRoutes);
+app.use('/',taskRoutes);
 
 
 

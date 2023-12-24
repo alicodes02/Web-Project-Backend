@@ -88,5 +88,65 @@ router.post('/signin', async (req,res) => {
     }
 });
 
+// fetch all {employees}.
+
+router.get('/employees', async (req, res) => {
+
+    try {
+
+        const employees = await User.find({role:'employee'});
+
+        const response = {
+
+            message: "fetched all employees successfully!",
+            employees: employees
+        };
+
+        res.status(200).send(response);
+    }
+
+    catch(error) {
+
+        const response = {
+
+            message: "Error fetching employees",
+        };
+
+        res.status(500).json(response);
+
+    }
+
+});
+
+// fetch all {managers}
+
+router.get('/managers', async (req, res) => {
+
+    try {
+
+        const employees = await User.find({role:'manager'});
+
+        const response = {
+
+            message: "fetched all manager successfully!",
+            employees: employees
+        };
+
+        res.status(200).send(response);
+    }
+
+    catch(error) {
+
+        const response = {
+
+            message: "Error fetching managers",
+        };
+
+        res.status(500).json(response);
+
+    }
+
+});
+
 module.exports = router;
 
