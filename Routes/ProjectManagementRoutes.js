@@ -78,7 +78,7 @@ router.get('/projects/:id', authenticateToken, async (req, res) => {
 
 
 
-router.patch('/projects/:id', async (req, res) =>
+router.patch('/update-project/:id', async (req, res) =>
  {
     const projectId = req.params.id;
     const updates = req.body; 
@@ -106,7 +106,7 @@ router.patch('/projects/:id', async (req, res) =>
 
 
   
-  router.delete('/projects/:id', async (req, res) => 
+  router.delete('/delete-project/:id', async (req, res) => 
   {
 
     const projectId = req.params.id;
