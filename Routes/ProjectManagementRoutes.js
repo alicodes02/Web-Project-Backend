@@ -8,6 +8,7 @@ router.use(authenticateToken);
 
 router.post('/project', async (req, res) => {
 
+    console.log(req.body);
  
   const { projectName, description, projectCategory, dueDate, assignTo, visibility } = req.body;
 
@@ -33,7 +34,7 @@ router.post('/project', async (req, res) => {
   {
 
          res.status(400).json({ message: err.message });
-         
+
   }
 
 });
