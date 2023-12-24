@@ -41,6 +41,10 @@ router.post('/signup', async (req,res) => {
 
             message: 'Sign Up Sucessfull',
             token: token,
+            userId: newUser._id,
+            userfirstName: newUser.firstName,
+            userEmail: newUser.email,
+
         };
 
         res.status(200).json(response);
