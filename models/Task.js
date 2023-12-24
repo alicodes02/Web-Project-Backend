@@ -47,6 +47,12 @@ const taskSchema = new mongoose.Schema({
             ref: 'FileAttachment',
         },
     ],
+
+    progress: {
+
+        type: Number,
+        default:0
+    }
 });
 
 const Task = mongoose.model('Task', taskSchema);
