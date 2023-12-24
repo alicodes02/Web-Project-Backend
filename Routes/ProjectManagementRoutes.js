@@ -4,7 +4,7 @@ const Project = require('../models/Project');
 const authenticateToken = require('../middleware/authentication'); 
 
 
-router.use(authenticateToken);
+//router.use(authenticateToken);
 
 
 
