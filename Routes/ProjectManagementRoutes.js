@@ -6,9 +6,6 @@ const authenticateToken = require('../middleware/authentication');
 
 //router.use(authenticateToken);
 
-
-
- 
 router.post('/project', async (req, res) => {
 
     console.log(req.body);
@@ -40,13 +37,7 @@ router.post('/project', async (req, res) => {
 
   }
 
-
-
 });
-
-
-
-
 
 router.get('/projects', async (req, res) => {
 

@@ -39,7 +39,7 @@ router.get('/all-tasks', /*authenticateUser, */async(req, res) => {
 
     try {
 
-        const tasks = await Task.find();
+        const tasks = await Task.find().populate('assignee', 'firstName');
 
         const response = {
 
@@ -109,6 +109,55 @@ router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
 
         res.status(500).json(response);
     }
+});
+
+// edit task progress
+
+router.patch('/edit-progress/:taskId', async (req, res) => {
+
+    const taskId = req.params.taskId.trim();
+    const progress = req.body.progress;
+
+    try {
+
+        const task = await Task.findById(taskId);
+
+        if(task) {
+
+            task.progress = progress;
+            await task.save();
+
+            const response = {
+                message: 'Progress Updated Successfully!',
+            }
+
+            res.status(200).json(response);
+        }
+
+        else {
+
+            const response = {
+
+                message: 'Task Not Found!',
+            }
+
+            res.status(404).json(response);
+
+        }
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        const response = {
+
+            message: 'Internal Server Error, check server logs!',
+        }
+
+        res.status(500).json(response);
+    }
+
 });
 
 module.exports = router;
