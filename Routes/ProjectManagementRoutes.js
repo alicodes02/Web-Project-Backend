@@ -109,7 +109,8 @@ router.patch('/update-project/:id', async (req, res) =>
   router.delete('/delete-project/:id', async (req, res) => 
   {
 
-    const projectId = req.params.id;
+    const projectId = parseInt(req.params.id);
+    console.log('Received project ID:', projectId);
   
     try {
       const project = await Project.findOne({ _id: projectId, owner: req.userId });
