@@ -26,7 +26,11 @@ const projectSchema = new mongoose.Schema({
     enum: ['privateToMe', 'public', 'privateToMembers']
     // Enum might be used if visibility has specific options
   },
- 
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
 });
 
 const Project = mongoose.model('Project', projectSchema);

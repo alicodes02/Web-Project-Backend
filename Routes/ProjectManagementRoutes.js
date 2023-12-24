@@ -23,7 +23,7 @@ router.post('/project', async (req, res) => {
       dueDate,
       assignTo,
       visibility,
-       // Assign the user ID from the authenticated request
+      owner: req.userId // Assign the user ID from the authenticated request
 
     });
 
