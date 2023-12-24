@@ -4,9 +4,11 @@ const Project = require('../models/Project');
 const authenticateToken = require('../middleware/authentication'); 
 
 
-router.use(authenticateToken);
+//router.use(authenticateToken);
 
 router.post('/project', async (req, res) => {
+
+
 
     console.log(req.body);
  
@@ -15,19 +17,24 @@ router.post('/project', async (req, res) => {
   try {
 
     const newProject = new Project({
-      projectName,
-      description,
-      projectCategory,
-      dueDate,
-      assignTo,
-      visibility,
-      owner: req.userId // Assign the user ID from the authenticated request
+      projectName: projectName,
+      description:description,
+      projectCategory: projectCategory,
+      dueDate:dueDate,
+      assignTo:assignTo,
+      visibility:visibility,
+     
 
     });
 
 
-    const savedProject = await newProject.save();
-    res.status(201).json(savedProject);
+    await newProject.save();
+    const response = {
+
+      message: 'New project Added Successfully',
+  };
+
+  res.status(200).json(response);
 
   } 
   catch (err) 
