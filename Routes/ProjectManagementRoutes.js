@@ -8,6 +8,8 @@ const authenticateToken = require('../middleware/authentication');
 
 router.post('/project', async (req, res) => {
 
+
+
     console.log(req.body);
  
   const { projectName, description, projectCategory, dueDate, assignTo, visibility } = req.body;
@@ -21,7 +23,7 @@ router.post('/project', async (req, res) => {
       dueDate,
       assignTo,
       visibility,
-      owner: req.userId // Assign the user ID from the authenticated request
+       // Assign the user ID from the authenticated request
 
     });
 
