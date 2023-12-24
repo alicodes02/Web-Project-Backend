@@ -115,8 +115,9 @@ router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
 
 router.patch('/edit-progress/:taskId', async (req, res) => {
 
-    const taskId = req.params.taskId.trim();
+    const taskId = req.params.taskId;
     const progress = req.body.progress;
+
 
     try {
 
@@ -153,6 +154,55 @@ router.patch('/edit-progress/:taskId', async (req, res) => {
         const response = {
 
             message: 'Internal Server Error, check server logs!',
+        }
+
+        res.status(500).json(response);
+    }
+
+});
+
+// edit status
+
+router.patch('/edit-status/:taskId', async (req, res) => {
+
+    const taskId = req.params.taskId;
+    console.log(taskId);
+
+    try {
+
+        const task = await Task.findById(taskId);
+
+        if(task) {
+
+            task.completed = true;
+            await task.save();
+
+            const response = {
+                message: 'Status Updated Successfully!',
+            }
+
+            res.status(200).json(response);
+        }
+
+        else {
+
+            const response = {
+
+                message: 'Task Not Found!',
+            }
+
+            res.status(404).json(response);
+
+        }
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        const response = {
+
+            message: 'Internal Server Error update status, check server logs!',
         }
 
         res.status(500).json(response);
