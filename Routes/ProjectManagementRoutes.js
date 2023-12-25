@@ -84,10 +84,14 @@ router.patch('/update-project/:id', async (req, res) =>
     const projectId = req.params.id;
     const updates = req.body; 
 
+    console.log('Received project ID:', projectId);
+
     
     try 
     {
-      const project = await Project.findOne({ _id: projectId, owner: req.userId });
+      const project = await Project.findById(projectId);
+
+      console.log(project);
       if (!project) {
         return res.status(404).json({ message: 'Project not found or unauthorized' });
       }
@@ -99,6 +103,8 @@ router.patch('/update-project/:id', async (req, res) =>
       await project.save();
       res.json(project);
     } catch (err) {
+
+      console.error('Error updating project:', err);
       res.status(500).json({ message: err.message });
     }
 
