@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const Project = require('../models/Project');
 const authenticateToken = require('../middleware/authentication'); 
@@ -106,25 +107,34 @@ router.patch('/update-project/:id', async (req, res) =>
 
 
   
-  router.delete('/delete-project/:id', async (req, res) => 
-  {
+  router.delete('/delete-project/:id', async (req, res) => {
 
-    const projectId = parseInt(req.params.id);
+
+    const projectId = req.params.id;
     console.log('Received project ID:', projectId);
   
     try {
-      const project = await Project.findOne({ _id: projectId, owner: req.userId });
+      const project = await Project.findById(projectId);
+      console.log(project);
       if (!project) {
+        console.log("Not found");
         return res.status(404).json({ message: 'Project not found or unauthorized' });
       }
   
-      await project.remove();
+       const isValidObjectId = mongoose.Types.ObjectId.isValid(projectId);
+       console.log('Is valid ObjectId:', isValidObjectId);
+
+       const deletedProject = await Project.findByIdAndDelete(projectId);
+
+
+
+  
+      console.log("Deleted:", deletedProject);
       res.json({ message: 'Project deleted' });
     } catch (err) {
+      console.error('Error deleting project:', err);
       res.status(500).json({ message: err.message });
     }
-
-
   });
   
 
