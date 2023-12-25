@@ -3,6 +3,8 @@ const User = require('../models/User');
 
 const authenticateUser = async (req, res, next) => {
 
+    console.log('In main authenticate user middleware');
+
   try {
 
       const token = req.header('Authorization');

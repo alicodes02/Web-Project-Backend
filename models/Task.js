@@ -35,12 +35,14 @@ const taskSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    
     comments: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Comment',
-        },
+            text: String,
+            user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+        }
     ],
+    
     fileAttachments: [
         {
             type: mongoose.Schema.Types.ObjectId,

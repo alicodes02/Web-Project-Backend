@@ -4,8 +4,12 @@ const User = require('../models/User');
 const Task = require('../models/Task');
 const router = express.Router();
 const { parse } = require('date-fns');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const authenticateUser = async (req, res, next) => {
+
+    console.log('In task middleware');
 
     try {
 
@@ -210,4 +214,111 @@ router.patch('/edit-status/:taskId', async (req, res) => {
 
 });
 
+// add comment route
+
+router.post('/add-comment/:taskId', /*authenticateUser,*/ async (req, res) => {
+
+    const taskId = req.params.taskId;
+    const comment = req.body.comment;
+    const userId = req.body.userId;
+
+    console.log('User Id in Add Comment = ', userId);
+    console.log('Task Id in Add Comment = ', taskId);
+    console.log('Comment = ', comment);
+
+    try {
+
+        const task = await Task.findById(taskId);
+
+        if (task) {
+
+            task.comments.push({
+
+                text: comment,
+                user: userId,
+
+            });
+
+            await task.save();
+
+            const response = {
+                message: 'Comment Added Successfully!',
+            }
+
+            res.status(200).json(response);
+        }
+
+        else {
+
+            const response = {
+
+                message: 'Task Not Found!',
+            }
+
+            res.status(404).json(response);
+
+        }
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        const response = {
+
+            message: 'Internal Server Error while adding comment, check server logs!',
+        }
+
+        res.status(500).json(response);
+    }
+
+});
+
+// get specific task comments.
+
+router.get('/get-comment/:taskId', /*authenticateUser,*/ async (req, res) => {
+
+    const taskId = req.params.taskId;
+
+    console.log('Task Id in get comment route = ', taskId);
+
+    try {
+
+        const task = await Task.findById(taskId);
+
+        if (task) {
+
+            const response = {
+
+                message: 'Fetched Comments Successfully!',
+                comments: task.comments,
+            }
+
+            res.status(200).json(response);
+        }
+
+        else {
+
+            const response = {
+
+                message: 'Task Not Found!',
+            }
+
+            res.status(404).json(response);
+
+        }
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        const response = {
+
+            message: 'Internal Server Error while fetching comment, check server logs!',
+        }
+
+        res.status(500).json(response);
+    }
+});
 module.exports = router;
