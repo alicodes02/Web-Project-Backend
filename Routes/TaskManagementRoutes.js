@@ -165,7 +165,7 @@ router.patch('/edit-progress/:taskId', async (req, res) => {
 
 });
 
-// edit status
+// edit complete status
 
 router.patch('/edit-status/:taskId', async (req, res) => {
 
@@ -179,6 +179,8 @@ router.patch('/edit-status/:taskId', async (req, res) => {
         if(task) {
 
             task.completed = true;
+            task.progress = 100;
+            
             await task.save();
 
             const response = {
