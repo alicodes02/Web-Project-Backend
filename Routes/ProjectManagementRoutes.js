@@ -65,7 +65,7 @@ router.get('/projects', async (req, res) => {
 
 
 
-router.get('/projects/:id', authenticateToken, async (req, res) => {
+router.get('/projects/:id', async (req, res) => {
   try {
     const project = await Project.findOne({ _id: req.params.id, owner: req.userId }); // Fetch project owned by the logged-in user
     if (!project) {
@@ -83,7 +83,8 @@ router.patch('/update-project/:id', async (req, res) =>
  {
     const projectId = req.params.id;
     const updates = req.body; 
-  
+
+    
     try 
     {
       const project = await Project.findOne({ _id: projectId, owner: req.userId });
