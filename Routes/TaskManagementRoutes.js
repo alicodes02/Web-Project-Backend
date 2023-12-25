@@ -39,6 +39,34 @@ const authenticateUser = async (req, res, next) => {
 
 };
 
+
+
+
+router.get('/all-tasks/:projectId', /*authenticateUser, */ async (req, res) => {
+    const projectId = req.params.projectId; // Get projectId from the request parameters
+  
+    try {
+      const tasks = await Task.find({ project: projectId }).populate('assignee', 'firstName');
+  
+      const response = {
+        message: 'Fetched tasks for the project successfully!',
+        tasks: tasks,
+      };
+  
+      res.status(200).json(response);
+    } catch (error) {
+      const response = {
+        message: 'Error fetching tasks',
+      };
+  
+      console.log(error);
+      res.status(500).json(response);
+    }
+  });
+
+  
+
+
 router.get('/all-tasks', /*authenticateUser, */async(req, res) => {
 
     try {
@@ -69,8 +97,9 @@ router.get('/all-tasks', /*authenticateUser, */async(req, res) => {
 
 //add task 
 
-router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
+router.post('/add-task/:projectId',/* authenticateUser,*/ async(req, res) => {
 
+    const projectId = req.params.projectId;
     console.log(req.body);
 
     const title = req.body.title;
@@ -78,6 +107,7 @@ router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
     const dueDate = parse(req.body.dueDate, 'yyyy-MM-dd', new Date());
     const priority = req.body.priority;
     const assignee = req.body.assignee;
+
 
     try {
 
@@ -88,7 +118,8 @@ router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
                 description: description,
                 dueDate: dueDate,
                 priority: priority,
-                assignee: assignee
+                assignee: assignee,
+                project:projectId
             }
         );
 
