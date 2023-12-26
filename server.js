@@ -5,6 +5,7 @@ const cors = require('cors');
 const UserRoutes = require('./Routes/UserManagementRoutes');
 const taskRoutes = require('./Routes/TaskManagementRoutes');
 const projectRoutes = require('./Routes/ProjectManagementRoutes')
+const meetingRoutes = require('./Routes/MeetingManagementRoutes')
 
 app.use(cors());
 app.use(express.json());
@@ -39,6 +40,7 @@ app.get('/test', (req, res) => {
 app.use('/', UserRoutes);
 app.use('/',taskRoutes);
 app.use('/' , projectRoutes)
+app.use('/' , meetingRoutes)
 
 
 
