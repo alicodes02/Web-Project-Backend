@@ -6,6 +6,7 @@ const UserRoutes = require('./Routes/UserManagementRoutes');
 const taskRoutes = require('./Routes/TaskManagementRoutes');
 const projectRoutes = require('./Routes/ProjectManagementRoutes')
 const meetingRoutes = require('./Routes/MeetingManagementRoutes')
+const profileRoutes = require('./Routes/UserProfileRoutes')
 
 app.use(cors());
 app.use(express.json());
@@ -41,6 +42,7 @@ app.use('/', UserRoutes);
 app.use('/',taskRoutes);
 app.use('/' , projectRoutes)
 app.use('/' , meetingRoutes)
+app.use('/' , profileRoutes)
 
 
 
