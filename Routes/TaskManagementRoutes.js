@@ -406,4 +406,38 @@ router.get('/get-comment/:taskId', /*authenticateUser,*/ async (req, res) => {
         res.status(500).json(response);
     }
 });
+
+// Route to get the total number of tasks
+
+router.get('/tasks/count', async (req, res) => {
+    
+    try {
+      const totalTasks = await Task.countDocuments();
+      res.json({ count:totalTasks });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+
+// Route to get completed and remaining tasks
+
+router.get('/tasks/status', async (req, res) => {
+
+    try {
+      const totalTasks = await Task.countDocuments();
+      const completedTasks = await Task.countDocuments({ completed: true });
+      const remainingTasks = totalTasks - completedTasks;
+  
+      res.json({
+        completedTasks,
+        remainingTasks,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+
 module.exports = router;
