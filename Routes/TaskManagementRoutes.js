@@ -95,11 +95,63 @@ router.get('/all-tasks', /*authenticateUser, */async(req, res) => {
     }
 });
 
-//add task 
+// add simple task without project id 
+
+router.post('/add-task',/* authenticateUser,*/ async(req, res) => {
+
+    console.log('In simple add task');
+
+    console.log(req.body);
+
+    const title = req.body.title;
+    const description = req.body.description;
+    const dueDate = parse(req.body.dueDate, 'yyyy-MM-dd', new Date());
+    const priority = req.body.priority;
+    const assignee = req.body.assignee;
+
+
+    try {
+
+        const newTask = new Task (
+
+            {
+                title: title,
+                description: description,
+                dueDate: dueDate,
+                priority: priority,
+                assignee: assignee,
+            }
+        );
+
+        await newTask.save();
+
+        const response = {
+
+            message: 'New Task Added Successfully',
+        };
+
+        res.status(200).json(response);
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        const response = {
+
+            message: 'Error Adding Task',
+        };
+
+        res.status(500).json(response);
+    }
+});
+
+//add task to project
 
 router.post('/add-task/:projectId',/* authenticateUser,*/ async(req, res) => {
 
     const projectId = req.params.projectId;
+    console.log('In simple project add task');
     console.log(req.body);
 
     const title = req.body.title;
