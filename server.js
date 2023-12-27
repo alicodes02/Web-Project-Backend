@@ -18,9 +18,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-//mongoose.connect('mongodb+srv://muhammadali:ali12345@cluster0.fom5vyh.mongodb.net/Web-Project').
-mongoose.connect('mongodb://127.0.0.1/CollaboraHub').
-
+mongoose.connect('mongodb+srv://muhammadali:ali12345@cluster0.fom5vyh.mongodb.net/Web-Project').
 then(()=> {
 
     console.log('Connected Sucessfully to MongoDB Cluster');
