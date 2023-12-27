@@ -38,7 +38,7 @@ router.post('/signup', async (req,res) => {
         const token = jwt.sign({ userId: newUser._id, email }, 'shhhh');
         const response = {
 
-            message: 'Sign Up Sucessfull',
+            message: 'Sign Up Sucessful',
             token: token,
             userId: newUser._id,
             userfirstName: newUser.firstName,

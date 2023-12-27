@@ -3,18 +3,16 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Project = require('../models/Project');
 const authenticateToken = require('../middleware/authentication'); 
-
+const Notification = require('../models/Notifications')
 
 //router.use(authenticateToken);
 
 router.post('/project', async (req, res) => {
 
-
-
     console.log(req.body);
  
   const { projectName, description, projectCategory, dueDate, assignTo, visibility } = req.body;
-
+  const dateCreated = new Date(Date.now());
   try {
 
     const newProject = new Project({
@@ -22,16 +20,25 @@ router.post('/project', async (req, res) => {
       description:description,
       projectCategory: projectCategory,
       dueDate:dueDate,
+      dateCreated:dateCreated,
       assignTo:assignTo,
       visibility:visibility,
-     
-
+    
     });
-
-
     await newProject.save();
-    const response = {
 
+    const IdCount = await Notification.countDocuments();
+    const newNotificationId = IdCount + 1;
+    const sentence=description.split('.')[0];
+    const newNotification = new Notification({
+            notificationId:newNotificationId,
+            title:title,
+            description:sentence,
+            createdAt:dateCreated
+    });
+    await newNotification.save();
+
+    const response = {
       message: 'New project Added Successfully',
   };
 

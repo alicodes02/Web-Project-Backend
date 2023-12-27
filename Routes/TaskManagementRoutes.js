@@ -6,6 +6,7 @@ const router = express.Router();
 const { parse } = require('date-fns');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
+const Notification = require('../models/Notifications')
 
 const authenticateUser = async (req, res, next) => {
 
@@ -105,9 +106,9 @@ router.post('/add-task/:projectId',/* authenticateUser,*/ async(req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const dueDate = parse(req.body.dueDate, 'yyyy-MM-dd', new Date());
+    const dateCreated = new Date(Date.now());
     const priority = req.body.priority;
     const assignee = req.body.assignee;
-
 
     try {
 
@@ -117,6 +118,7 @@ router.post('/add-task/:projectId',/* authenticateUser,*/ async(req, res) => {
                 title: title,
                 description: description,
                 dueDate: dueDate,
+                dateCreated: dateCreated,
                 priority: priority,
                 assignee: assignee,
                 project:projectId
@@ -124,9 +126,19 @@ router.post('/add-task/:projectId',/* authenticateUser,*/ async(req, res) => {
         );
 
         await newTask.save();
+        
+        const IdCount = await Notification.countDocuments();
+        const newNotificationId = IdCount + 1;
+        const sentence=description.split('.')[0];
+        const newNotification = new Notification({
+                notificationId:newNotificationId,
+                title:title,
+                description:sentence,
+                createdAt:dateCreated
+        });
+        await newNotification.save();
 
         const response = {
-
             message: 'New Task Added Successfully',
         };
 
@@ -354,4 +366,19 @@ router.get('/get-comment/:taskId', /*authenticateUser,*/ async (req, res) => {
         res.status(500).json(response);
     }
 });
+
+//get priority tasks
+router.get('/prior-tasks', async (req, res) => {
+    try {
+      const tasks = await Task.find()
+        .sort({ priority: -1 })
+        .exec();
+  
+      res.json(tasks);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+
 module.exports = router;

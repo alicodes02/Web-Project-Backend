@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
+  //projectId:{
+    //    type:Number,
+    //    required:true,
+    //    unique:true,
+    //}
   projectName: {
     type: String,
     required: true
@@ -17,6 +22,10 @@ const projectSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
+  dateCreated: {
+    type: Date,
+    default: Date.now,
+  },
   assignTo: {
     type: String
     // You might want to link this to User schema if assigning to specific users
@@ -28,7 +37,6 @@ const projectSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-   
   }
 });
 

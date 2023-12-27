@@ -5,6 +5,9 @@ const cors = require('cors');
 const UserRoutes = require('./Routes/UserManagementRoutes');
 const taskRoutes = require('./Routes/TaskManagementRoutes');
 const projectRoutes = require('./Routes/ProjectManagementRoutes')
+const NotificationRoutes = require('./Routes/NotificationRoutes')
+const EventRoutes = require('./Routes/EventRoutes')
+const OAuth= require('./Routes/GoogleCalendarAPI')
 
 app.use(cors());
 app.use(express.json());
@@ -13,7 +16,8 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-mongoose.connect('mongodb+srv://muhammadali:ali12345@cluster0.fom5vyh.mongodb.net/Web-Project').
+//mongoose.connect('mongodb+srv://muhammadali:ali12345@cluster0.fom5vyh.mongodb.net/Web-Project').
+mongoose.connect('mongodb://127.0.0.1/CollaboraHub').
 
 then(()=> {
 
@@ -37,8 +41,10 @@ app.get('/test', (req, res) => {
 });
 
 app.use('/', UserRoutes);
-app.use('/',taskRoutes);
+app.use('/', taskRoutes);
 app.use('/' , projectRoutes)
-
+app.use('/', NotificationRoutes)
+app.use('/', EventRoutes)
+app.use('/',OAuth);
 
 

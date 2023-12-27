@@ -4,7 +4,11 @@ const FileAttachment = require('./FileAttachment');
 const User = require('./User');
 
 const taskSchema = new mongoose.Schema({
-
+    //TaskId:{
+    //    type:Number,
+    //    required:true,
+    //    unique:true,
+    //}
     title: {
         type: String,
         required: true,
@@ -16,6 +20,10 @@ const taskSchema = new mongoose.Schema({
     dueDate: {
         type: Date,
         required: true,
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now,
     },
     priority: {
         type: String,
