@@ -8,6 +8,8 @@ const projectRoutes = require('./Routes/ProjectManagementRoutes')
 const NotificationRoutes = require('./Routes/NotificationRoutes')
 const EventRoutes = require('./Routes/EventRoutes')
 const OAuth= require('./Routes/GoogleCalendarAPI')
+const meetingRoutes = require('./Routes/MeetingManagementRoutes')
+
 
 app.use(cors());
 app.use(express.json());
@@ -46,5 +48,8 @@ app.use('/' , projectRoutes)
 app.use('/', NotificationRoutes)
 app.use('/', EventRoutes)
 app.use('/',OAuth);
+app.use('/' , meetingRoutes)
+
+
 
 

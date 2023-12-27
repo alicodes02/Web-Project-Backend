@@ -66,8 +66,7 @@ const taskSchema = new mongoose.Schema({
 
     project: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project', // Replace 'Project' with the actual name of your Project model
-        required: true,
+        ref: 'Project',
       },
 });
 

@@ -150,6 +150,18 @@ router.patch('/update-project/:id', async (req, res) =>
       res.status(500).json({ message: err.message });
     }
   });
+
+  // Route to get the total number of projects
+
+router.get('/count-projects', async (req, res) => {
+  try {
+    const totalProjects = await Project.countDocuments();
+    res.json({ count: totalProjects });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
   
 
 
