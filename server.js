@@ -9,6 +9,7 @@ const NotificationRoutes = require('./Routes/NotificationRoutes')
 const EventRoutes = require('./Routes/EventRoutes')
 const OAuth= require('./Routes/GoogleCalendarAPI')
 const meetingRoutes = require('./Routes/MeetingManagementRoutes')
+require('dotenv').config();
 
 
 app.use(cors());
@@ -17,14 +18,15 @@ app.use(express.json());
 // connecting to remote mongodb cluster
 
 const PORT = process.env.PORT || 3001;
+const mongodb_url = process.env.MONGODB_URL;
 
-mongoose.connect('mongodb+srv://muhammadali:ali12345@cluster0.fom5vyh.mongodb.net/Web-Project').
+mongoose.connect(mongodb_url).
 then(()=> {
 
     console.log('Connected Sucessfully to MongoDB Cluster');
 
-    app.listen(3001, ()=> {
-        console.log('Server is running on port 3001');
+    app.listen(PORT, ()=> {
+        console.log(`Server is running on port ${PORT}`);
     });
 }).
 
