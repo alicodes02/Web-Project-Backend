@@ -12,7 +12,10 @@ const meetingRoutes = require('./Routes/MeetingManagementRoutes')
 require('dotenv').config();
 
 
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+    origin: 'https://web-project-frontend-m4x7cvbsr-muhammad-alis-projects-4ca2a080.vercel.app'
+  }));
 app.use(express.json());
 
 // connecting to remote mongodb cluster
