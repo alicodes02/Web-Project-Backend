@@ -32,7 +32,7 @@ router.post('/project', async (req, res) => {
     const sentence=description.split('.')[0];
     const newNotification = new Notification({
             notificationId:newNotificationId,
-            title:title,
+            title:projectName,
             description:sentence,
             createdAt:dateCreated
     });
